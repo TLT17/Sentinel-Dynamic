@@ -74,7 +74,11 @@ export default function PrivacyPolicyPage() {
 
             <section>
               <h2 className="font-cinzel text-lg text-foreground tracking-wider mb-3">DATA STORAGE AND SECURITY</h2>
-              <p className="text-sm">All data is stored on secure, self-hosted servers. Your information is encrypted in transit and at rest. We implement industry-standard security measures to protect your data from unauthorised access, alteration, or disclosure.</p>
+              <p className="text-sm mb-4">All data is stored on secure, self-hosted servers. Your information is encrypted in transit and at rest. We implement industry-standard security measures to protect your data from unauthorised access, alteration, or disclosure.</p>
+              <div className="border-2 border-primary/30 bg-primary/5 p-4">
+                <p className="font-cinzel text-sm text-primary tracking-wide mb-2">IN OTHER WORDS</p>
+                <p className="text-sm text-foreground">All information you put into this app is only saved on your device, for your eyes only. Nothing is sent to the cloud where other people could access it. Your data stays with you and nobody else.</p>
+              </div>
             </section>
 
             <section>
