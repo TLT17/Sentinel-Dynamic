@@ -15,6 +15,8 @@ import CheckInPage from "@/pages/checkin";
 import SafeLocationsPage from "@/pages/safe-locations";
 import LiveMapPage from "@/pages/live-map";
 import SettingsPage from "@/pages/settings";
+import PrivacyPolicyPage from "@/pages/privacy";
+import TermsPage from "@/pages/terms";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -75,6 +77,14 @@ function RootRouter() {
 
   if (location === "/welcome") {
     return <LandingPage />;
+  }
+
+  if (location === "/privacy") {
+    return <PrivacyPolicyPage />;
+  }
+
+  if (location === "/terms") {
+    return <TermsPage />;
   }
 
   return <AppLayout />;

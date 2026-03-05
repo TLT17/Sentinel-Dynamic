@@ -79,17 +79,43 @@ export default function LandingPage() {
             YOUR SAFETY. YOUR VOICE. YOUR CONTROL.
           </h3>
           <Link href="/home">
-            <Button variant="outline" className="px-12 py-6 font-cinzel tracking-widest rounded-none" data-testid="button-enter-app">
-              ENTER APPLICATION
+            <Button className="px-12 py-6 font-cinzel tracking-widest text-lg rounded-none" data-testid="button-enter-app">
+              ENTER APPLICATION <ChevronRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
         </div>
       </section>
 
-      <footer className="p-6 border-t-2 border-border text-center">
-        <p className="text-muted-foreground text-sm font-cinzel tracking-wider">
-          SENTINEL DYNAMIC 2026 | PROTECTING WHAT MATTERS
-        </p>
+      <footer className="p-6 md:p-10 border-t-2 border-border">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+            <div className="flex items-center gap-3">
+              <img
+                src={sigilPath}
+                alt="Sentinel Sigil"
+                className="w-8 h-8 object-contain"
+                style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
+              />
+              <span className="font-cinzel text-sm text-foreground tracking-[0.15em]">SENTINEL DYNAMIC</span>
+            </div>
+            <div className="flex items-center gap-6">
+              <Link href="/privacy">
+                <span className="text-muted-foreground text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-privacy">PRIVACY POLICY</span>
+              </Link>
+              <Link href="/terms">
+                <span className="text-muted-foreground text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-terms">TERMS OF USE</span>
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-border pt-6 text-center">
+            <p className="text-muted-foreground/60 text-xs font-cinzel tracking-wider">
+              &copy; 2026 SENTINEL DYNAMIC. ALL RIGHTS RESERVED.
+            </p>
+            <p className="text-muted-foreground/40 text-[10px] mt-2">
+              PROTECTING WHAT MATTERS
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
