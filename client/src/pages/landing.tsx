@@ -95,17 +95,17 @@ export default function LandingPage() {
               className="w-6 h-6 object-contain"
               style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
             />
-            <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider">&copy; 2026 SENTINEL DYNAMIC</span>
+            <span className="text-muted-foreground/50 text-xs font-cinzel tracking-wider">&copy; 2026 SENTINEL DYNAMIC</span>
           </div>
           <div className="flex items-center gap-5">
             <Link href="/about">
-              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-about">ABOUT</span>
+              <span className="text-muted-foreground/50 text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-about">ABOUT</span>
             </Link>
             <Link href="/privacy">
-              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-privacy">PRIVACY</span>
+              <span className="text-muted-foreground/50 text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-privacy">PRIVACY</span>
             </Link>
             <Link href="/terms">
-              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-terms">TERMS</span>
+              <span className="text-muted-foreground/50 text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-terms">TERMS</span>
             </Link>
           </div>
         </div>
