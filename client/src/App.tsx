@@ -17,6 +17,7 @@ import LiveMapPage from "@/pages/live-map";
 import SettingsPage from "@/pages/settings";
 import PrivacyPolicyPage from "@/pages/privacy";
 import TermsPage from "@/pages/terms";
+import AboutPage from "@/pages/about";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -85,6 +86,10 @@ function RootRouter() {
 
   if (location === "/terms") {
     return <TermsPage />;
+  }
+
+  if (location === "/about") {
+    return <AboutPage />;
   }
 
   return <AppLayout />;
