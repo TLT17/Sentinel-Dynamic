@@ -86,29 +86,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="p-6 md:p-10 border-t-2 border-border">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <footer className="px-6 py-4 border-t border-border">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
             <img
               src={sigilPath}
               alt="Sentinel Sigil"
-              className="w-8 h-8 object-contain"
+              className="w-6 h-6 object-contain"
               style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
             />
-            <div>
-              <span className="font-cinzel text-sm text-foreground tracking-[0.15em]">SENTINEL DYNAMIC</span>
-              <p className="text-muted-foreground/40 text-[10px] font-cinzel tracking-wider">&copy; 2026 ALL RIGHTS RESERVED</p>
-            </div>
+            <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider">&copy; 2026 SENTINEL DYNAMIC</span>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5">
             <Link href="/about">
-              <span className="text-muted-foreground text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-about">ABOUT</span>
+              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-about">ABOUT</span>
             </Link>
             <Link href="/privacy">
-              <span className="text-muted-foreground text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-privacy">PRIVACY</span>
+              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-privacy">PRIVACY</span>
             </Link>
             <Link href="/terms">
-              <span className="text-muted-foreground text-xs font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-terms">TERMS</span>
+              <span className="text-muted-foreground/50 text-[10px] font-cinzel tracking-wider hover:text-primary transition-colors cursor-pointer" data-testid="link-terms">TERMS</span>
             </Link>
           </div>
         </div>
