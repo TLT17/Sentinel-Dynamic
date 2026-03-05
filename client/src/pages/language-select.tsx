@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
-import { Shield } from "lucide-react";
 import { useLocation } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { UserPreference } from "@shared/schema";
+import sigilPath from "@assets/image_1772723503197.png";
 
 const languages = [
   { code: "en", native: "English", label: "English" },
@@ -18,6 +18,7 @@ const languages = [
   { code: "ko", native: "한국어", label: "Korean" },
   { code: "ar", native: "العربية", label: "Arabic" },
   { code: "hi", native: "हिन्दी", label: "Hindi" },
+  { code: "ms", native: "Bahasa Melayu", label: "Malay" },
 ];
 
 export default function LanguageSelectPage() {
@@ -54,8 +55,14 @@ export default function LanguageSelectPage() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-10"
       >
-        <div className="w-20 h-20 mx-auto mb-6 border-3 border-primary flex items-center justify-center">
-          <Shield className="w-10 h-10 text-primary" />
+        <div className="w-24 h-24 mx-auto mb-6">
+          <img
+            src={sigilPath}
+            alt="Sentinel Dynamic Sigil"
+            className="w-full h-full object-contain"
+            style={{ filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg) brightness(0.85)" }}
+            data-testid="img-sigil"
+          />
         </div>
         <h1 className="font-cinzel text-3xl md:text-4xl text-foreground tracking-[0.2em] mb-3" data-testid="text-app-title">
           SENTINEL DYNAMIC
@@ -75,13 +82,10 @@ export default function LanguageSelectPage() {
               transition={{ delay: index * 0.04 }}
               onClick={() => selectMutation.mutate(lang.code)}
               disabled={selectMutation.isPending}
-              className={
-                "bg-card border-2 border-border p-4 text-left hover-elevate transition-all flex items-center gap-3 " +
-                (index === languages.length - 1 && languages.length % 2 !== 0 ? "col-span-1" : "")
-              }
+              className="bg-card border-2 border-border p-4 text-left hover-elevate transition-all flex items-center gap-3"
               data-testid={`button-lang-${lang.code}`}
             >
-              <Globe className="w-5 h-5 text-muted-foreground shrink-0" />
+              <Globe className="w-5 h-5 text-primary shrink-0" />
               <div>
                 <p className="font-cinzel text-foreground tracking-wide text-base leading-tight">
                   {lang.native}

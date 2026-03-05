@@ -1,8 +1,9 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight, Shield } from "lucide-react";
+import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
+import sigilPath from "@assets/image_1772723503197.png";
 
 const features = [
   { icon: Mic, title: "VOICE ACTIVATION", description: "Custom trigger phrases activate alerts even when your phone is in your pocket or bag. Advanced voice recognition works through fabric and at a distance." },
@@ -32,8 +33,14 @@ export default function LandingPage() {
           animate={{ opacity: 1, scale: 1 }}
           className="relative z-10 text-center"
         >
-          <div className="w-32 h-32 mx-auto mb-8 border-4 border-primary flex items-center justify-center">
-            <Shield className="w-16 h-16 text-primary" />
+          <div className="w-36 h-36 mx-auto mb-8">
+            <img
+              src={sigilPath}
+              alt="Sentinel Dynamic Sigil"
+              className="w-full h-full object-contain"
+              style={{ filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg) brightness(0.85)" }}
+              data-testid="img-landing-sigil"
+            />
           </div>
           <h1 className="font-cinzel text-5xl md:text-7xl text-foreground tracking-[0.2em] mb-4" data-testid="text-landing-title">
             SENTINEL

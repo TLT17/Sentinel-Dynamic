@@ -12,7 +12,6 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
-  Shield,
   Home,
   Users,
   Bell,
@@ -21,6 +20,7 @@ import {
   Map,
   Settings,
 } from "lucide-react";
+import sigilPath from "@assets/image_1772723503197.png";
 
 const navItems = [
   { title: "Home", url: "/home", icon: Home },
@@ -38,11 +38,14 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
-        <Link href="/">
+        <Link href="/home">
           <div className="flex items-center gap-3 cursor-pointer" data-testid="link-home-logo">
-            <div className="flex items-center justify-center w-9 h-9 border-2 border-primary">
-              <Shield className="w-5 h-5 text-primary" />
-            </div>
+            <img
+              src={sigilPath}
+              alt="Sentinel Sigil"
+              className="w-9 h-9 object-contain"
+              style={{ filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg) brightness(0.85)" }}
+            />
             <div className="flex flex-col">
               <span className="font-cinzel text-sm font-bold tracking-[0.15em] text-foreground">SENTINEL</span>
               <span className="font-cinzel text-[10px] tracking-[0.2em] text-primary -mt-0.5">DYNAMIC</span>

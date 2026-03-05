@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import NotFound from "@/pages/not-found";
+import LanguageSelectPage from "@/pages/language-select";
 import LandingPage from "@/pages/landing";
 import HomePage from "@/pages/home";
 import ContactsPage from "@/pages/contacts";
@@ -69,6 +70,10 @@ function RootRouter() {
   const [location] = useLocation();
 
   if (location === "/") {
+    return <LanguageSelectPage />;
+  }
+
+  if (location === "/welcome") {
     return <LandingPage />;
   }
 
