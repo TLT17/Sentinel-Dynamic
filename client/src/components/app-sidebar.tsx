@@ -44,7 +44,7 @@ export function AppSidebar() {
               src={sigilPath}
               alt="Sentinel Sigil"
               className="w-9 h-9 object-contain"
-              style={{ filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg) brightness(0.85)" }}
+              style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
             />
             <div className="flex flex-col">
               <span className="font-cinzel text-sm font-bold tracking-[0.15em] text-foreground">SENTINEL</span>
