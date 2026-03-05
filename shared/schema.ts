@@ -1,62 +1,66 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-
-export const severityEnum = pgEnum("severity", ["low", "medium", "high", "critical"]);
-export const incidentStatusEnum = pgEnum("incident_status", ["open", "investigating", "resolved", "closed"]);
-export const alertTypeEnum = pgEnum("alert_type", ["weather", "security", "health", "fire", "general"]);
-export const checkinStatusEnum = pgEnum("checkin_status", ["safe", "need_help", "emergency"]);
-
-export const incidents = pgTable("incidents", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  severity: severityEnum("severity").notNull().default("medium"),
-  status: incidentStatusEnum("status").notNull().default("open"),
-  location: text("location").notNull(),
-  reportedBy: text("reported_by").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
 
 export const emergencyContacts = pgTable("emergency_contacts", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   name: text("name").notNull(),
   phone: text("phone").notNull(),
-  email: text("email"),
-  relationship: text("relationship").notNull(),
-  isPrimary: boolean("is_primary").notNull().default(false),
+  level: integer("level").notNull().default(3),
+  relationship: text("relationship"),
 });
 
-export const alerts = pgTable("alerts", {
+export const alertSettings = pgTable("alert_settings", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  title: text("title").notNull(),
-  message: text("message").notNull(),
-  type: alertTypeEnum("type").notNull().default("general"),
-  severity: severityEnum("severity").notNull().default("medium"),
-  active: boolean("active").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  level: integer("level").notNull(),
+  activationPhrase: text("activation_phrase").notNull(),
+  messageTemplate: text("message_template").notNull(),
+  includeLocation: boolean("include_location").notNull().default(true),
+  countryEmergencyNumber: text("country_emergency_number"),
 });
 
-export const safetyCheckins = pgTable("safety_checkins", {
+export const userPreferences = pgTable("user_preferences", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  language: text("language").notNull().default("en"),
+  systemArmed: boolean("system_armed").notNull().default(false),
+  voiceSensitivity: real("voice_sensitivity").notNull().default(0.7),
+  decoyMode: boolean("decoy_mode").notNull().default(true),
+});
+
+export const checkInTimers = pgTable("check_in_timers", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  isActive: boolean("is_active").notNull().default(false),
+  checkInBy: timestamp("check_in_by"),
+  durationMinutes: integer("duration_minutes").notNull().default(60),
+  alertLevel: integer("alert_level").notNull().default(2),
+  lastCheckIn: timestamp("last_check_in"),
+  customMessage: text("custom_message"),
+});
+
+export const safeLocations = pgTable("safe_locations", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   name: text("name").notNull(),
-  status: checkinStatusEnum("status").notNull(),
-  location: text("location"),
-  message: text("message"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  address: text("address"),
+  latitude: real("latitude").notNull(),
+  longitude: real("longitude").notNull(),
+  radiusMeters: integer("radius_meters").notNull().default(100),
+  autoDisarm: boolean("auto_disarm").notNull().default(true),
 });
 
-export const insertIncidentSchema = createInsertSchema(incidents).omit({ id: true, createdAt: true });
 export const insertEmergencyContactSchema = createInsertSchema(emergencyContacts).omit({ id: true });
-export const insertAlertSchema = createInsertSchema(alerts).omit({ id: true, createdAt: true });
-export const insertSafetyCheckinSchema = createInsertSchema(safetyCheckins).omit({ id: true, createdAt: true });
+export const insertAlertSettingsSchema = createInsertSchema(alertSettings).omit({ id: true });
+export const insertUserPreferencesSchema = createInsertSchema(userPreferences).omit({ id: true });
+export const insertCheckInTimerSchema = createInsertSchema(checkInTimers).omit({ id: true });
+export const insertSafeLocationSchema = createInsertSchema(safeLocations).omit({ id: true });
 
-export type Incident = typeof incidents.$inferSelect;
-export type InsertIncident = z.infer<typeof insertIncidentSchema>;
 export type EmergencyContact = typeof emergencyContacts.$inferSelect;
 export type InsertEmergencyContact = z.infer<typeof insertEmergencyContactSchema>;
-export type Alert = typeof alerts.$inferSelect;
-export type InsertAlert = z.infer<typeof insertAlertSchema>;
-export type SafetyCheckin = typeof safetyCheckins.$inferSelect;
-export type InsertSafetyCheckin = z.infer<typeof insertSafetyCheckinSchema>;
+export type AlertSetting = typeof alertSettings.$inferSelect;
+export type InsertAlertSetting = z.infer<typeof insertAlertSettingsSchema>;
+export type UserPreference = typeof userPreferences.$inferSelect;
+export type InsertUserPreference = z.infer<typeof insertUserPreferencesSchema>;
+export type CheckInTimer = typeof checkInTimers.$inferSelect;
+export type InsertCheckInTimer = z.infer<typeof insertCheckInTimerSchema>;
+export type SafeLocation = typeof safeLocations.$inferSelect;
+export type InsertSafeLocation = z.infer<typeof insertSafeLocationSchema>;

@@ -12,20 +12,24 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
-  LayoutDashboard,
-  AlertTriangle,
-  Bell,
-  Users,
-  ShieldCheck,
   Shield,
+  Home,
+  Users,
+  Bell,
+  Clock,
+  MapPin,
+  Map,
+  Settings,
 } from "lucide-react";
 
 const navItems = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Incidents", url: "/incidents", icon: AlertTriangle },
-  { title: "Alerts", url: "/alerts", icon: Bell },
+  { title: "Home", url: "/home", icon: Home },
+  { title: "Live Map", url: "/map", icon: Map },
   { title: "Contacts", url: "/contacts", icon: Users },
-  { title: "Check-in", url: "/checkin", icon: ShieldCheck },
+  { title: "Alerts", url: "/alerts", icon: Bell },
+  { title: "Check-In", url: "/checkin", icon: Clock },
+  { title: "Locations", url: "/locations", icon: MapPin },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -35,20 +39,20 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader className="p-4">
         <Link href="/">
-          <div className="flex items-center gap-2 cursor-pointer" data-testid="link-home">
-            <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary">
-              <Shield className="w-5 h-5 text-primary-foreground" />
+          <div className="flex items-center gap-3 cursor-pointer" data-testid="link-home-logo">
+            <div className="flex items-center justify-center w-9 h-9 border-2 border-primary">
+              <Shield className="w-5 h-5 text-primary" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold tracking-tight">Sentinel</span>
-              <span className="text-xs text-muted-foreground -mt-0.5">Dynamic</span>
+              <span className="font-cinzel text-sm font-bold tracking-[0.15em] text-foreground">SENTINEL</span>
+              <span className="font-cinzel text-[10px] tracking-[0.2em] text-primary -mt-0.5">DYNAMIC</span>
             </div>
           </div>
         </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-cinzel tracking-wider text-[10px]">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
@@ -57,9 +61,9 @@ export function AppSidebar() {
                     asChild
                     data-active={location === item.url}
                   >
-                    <Link href={item.url} data-testid={`link-${item.title.toLowerCase()}`}>
+                    <Link href={item.url} data-testid={`link-nav-${item.title.toLowerCase().replace(/\s/g, '-')}`}>
                       <item.icon className="w-4 h-4" />
-                      <span>{item.title}</span>
+                      <span className="font-cinzel text-xs tracking-wider">{item.title.toUpperCase()}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -68,10 +72,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-4">
-        <div className="text-xs text-muted-foreground">
-          Sentinel Dynamic v1.0
-        </div>
+      <SidebarFooter className="p-4 border-t border-border">
+        <p className="text-[10px] text-muted-foreground font-cinzel tracking-wider">SENTINEL DYNAMIC v1.0</p>
+        <p className="text-[9px] text-muted-foreground/60 mt-0.5">PROTECTING WHAT MATTERS</p>
       </SidebarFooter>
     </Sidebar>
   );
