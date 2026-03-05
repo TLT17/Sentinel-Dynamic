@@ -17,7 +17,7 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <section className="relative min-h-[80vh] flex flex-col items-center justify-center p-6 border-b-2 border-border">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center p-6">
         <div className="absolute inset-0 opacity-[0.03]">
           <div
             className="absolute inset-0"
@@ -73,7 +73,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="p-6 md:p-12 border-t-2 border-border">
+      <section className="p-6 md:p-12">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="font-cinzel text-2xl text-foreground tracking-wider mb-6">
             YOUR SAFETY. YOUR VOICE. YOUR CONTROL.
