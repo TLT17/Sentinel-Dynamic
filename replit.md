@@ -11,9 +11,10 @@ Voice-activated personal safety application. Self-hosted, zero external cloud de
 ## Theme
 
 - Dark only: background #0d0d0d, primary turquoise #00d4aa
-- Fonts: Cinzel (headings/labels), Inter (body)
+- Fonts: Cinzel (ALL headings/labels/buttons), Rajdhani (body text, weight 500), JetBrains Mono (mono)
 - All buttons/inputs use rounded-none
 - No light mode toggle
+- Sigil: `attached_assets/image_1772723503197.png` — displayed with CSS filter (turquoise on dark)
 
 ## Database Tables
 
@@ -25,7 +26,8 @@ Voice-activated personal safety application. Self-hosted, zero external cloud de
 
 ## Pages
 
-- `/` - Landing page (full-screen, no sidebar)
+- `/` - Language select (12 languages, 2-column grid with turquoise globe icons)
+- `/welcome` - Landing page (full-screen, sigil, features, compact footer with About/Privacy/Terms links)
 - `/home` - System status, arm/disarm shield, voice test
 - `/map` - Live GPS map (Leaflet + OpenStreetMap), real-time tracking, safe location markers
 - `/contacts` - Manage emergency contacts by level
@@ -33,6 +35,9 @@ Voice-activated personal safety application. Self-hosted, zero external cloud de
 - `/checkin` - Check-in timer management
 - `/locations` - Safe location management
 - `/settings` - User preferences, decoy mode, voice sensitivity
+- `/about` - About page (purpose, sigil meaning, who it's for, features, promise)
+- `/privacy` - Privacy Policy (NZ Privacy Act 2020, GDPR, no data selling)
+- `/terms` - Terms of Use (safety disclaimer, acceptable use, NZ governing law)
 
 ## Key Features
 
