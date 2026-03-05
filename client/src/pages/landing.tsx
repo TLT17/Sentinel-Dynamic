@@ -49,7 +49,7 @@ export default function LandingPage() {
             DYNAMIC
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-lg leading-relaxed mb-12">
-            Your voice is your lifeline. Advanced voice-activated emergency alert system designed for those who need silent, reliable protection.
+            Your voice is your lifeline. One word can reach the people who matter most, no matter where you are or what you're facing.
           </p>
           <Link href="/home">
             <Button className="px-12 py-6 font-cinzel tracking-widest text-lg rounded-none" data-testid="button-get-started">
