@@ -3,6 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeft, Heart, Shield, Globe, Mic, MapPin, Clock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import sigilPath from "@assets/image_1772723503197.png";
+import { PillarsWordmark } from "@/components/PillarsWordmark";
 
 export default function AboutPage() {
   return (
@@ -149,7 +150,8 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t-2 border-border pt-8">
+            <section className="border-t-2 border-border pt-8 flex flex-col items-center gap-4">
+              <PillarsWordmark variant="full" showSubBrands />
               <p className="text-sm text-muted-foreground/60 font-cinzel tracking-wider text-center">&copy; 2026 SENTINEL DYNAMIC. ALL RIGHTS RESERVED.</p>
             </section>
           </div>

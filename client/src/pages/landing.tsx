@@ -4,6 +4,7 @@ import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight } from "luci
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import sigilPath from "@assets/image_1772723503197.png";
+import { PillarsWordmark } from "@/components/PillarsWordmark";
 
 const features = [
   { icon: Mic, title: "VOICE ACTIVATION", description: "Custom trigger phrases activate alerts even when your phone is in your pocket or bag. Advanced voice recognition works through fabric and at a distance." },
@@ -88,7 +89,7 @@ export default function LandingPage() {
 
       <footer className="px-6 py-4 border-t border-border">
         <div className="max-w-4xl mx-auto flex items-center justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <img
               src={sigilPath}
               alt="Sentinel Sigil"
@@ -96,6 +97,8 @@ export default function LandingPage() {
               style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
             />
             <span className="text-muted-foreground/50 text-xs font-cinzel tracking-wider">&copy; 2026 SENTINEL DYNAMIC</span>
+            <span className="text-muted-foreground/20 text-xs">|</span>
+            <PillarsWordmark variant="badge" />
           </div>
           <div className="flex items-center gap-5">
             <Link href="/about">
