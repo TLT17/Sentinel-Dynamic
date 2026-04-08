@@ -135,6 +135,20 @@ export default function AboutPage() {
               </div>
             </section>
 
+            <section>
+              <h2 className="font-cinzel text-lg text-foreground tracking-wider mb-4">GET IN TOUCH</h2>
+              <div className="bg-card border-2 border-border p-4">
+                <p className="text-sm text-muted-foreground mb-3">Have a question, a suggestion, or need support? We want to hear from you.</p>
+                <a
+                  href="mailto:3pillars.sentineldynamic@gmail.com"
+                  className="font-cinzel text-sm text-primary tracking-wide hover:underline"
+                  data-testid="link-contact-email"
+                >
+                  3pillars.sentineldynamic@gmail.com
+                </a>
+              </div>
+            </section>
+
             <section className="border-t-2 border-border pt-8">
               <p className="text-sm text-muted-foreground/60 font-cinzel tracking-wider text-center">&copy; 2026 SENTINEL DYNAMIC. ALL RIGHTS RESERVED.</p>
             </section>
