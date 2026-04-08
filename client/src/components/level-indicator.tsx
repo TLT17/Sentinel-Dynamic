@@ -2,7 +2,7 @@ import { AlertTriangle, Users, Shield } from "lucide-react";
 
 const levelConfig: Record<number, { icon: typeof AlertTriangle; label: string; subtitle: string; color: string; description: string }> = {
   1: { icon: AlertTriangle, label: "LEVEL 1", subtitle: "EMERGENCY", color: "#ff4444", description: "Contacts emergency services + all contacts" },
-  2: { icon: Users, label: "LEVEL 2", subtitle: "TRUSTED", color: "#ffaa00", description: "Alerts trusted contacts only" },
+  2: { icon: Users, label: "LEVEL 2", subtitle: "TRUSTED", color: "#a855f7", description: "Alerts trusted contacts only" },
   3: { icon: Shield, label: "LEVEL 3", subtitle: "GENERAL", color: "#00d4aa", description: "Alerts general contacts" },
 };
 
