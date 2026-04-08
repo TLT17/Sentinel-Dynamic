@@ -82,7 +82,7 @@ function VoiceBeepTest() {
     : "MICROPHONE ACCESS DENIED";
 
   const borderColor = testState === "detected" ? "border-primary text-primary"
-    : testState === "listening" ? "border-yellow-500 text-yellow-500"
+    : testState === "listening" ? "border-blue-400 text-blue-400"
     : testState === "error" ? "border-destructive text-destructive"
     : "border-border text-muted-foreground";
 
@@ -231,12 +231,12 @@ export default function HomePage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="mt-8 p-4 border-2 border-yellow-600/50 bg-yellow-600/10"
+                className="mt-8 p-4 border-2 border-blue-500/50 bg-blue-500/10"
               >
                 <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-yellow-500 mt-0.5" />
+                  <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
                   <div>
-                    <p className="text-yellow-500 font-cinzel text-sm tracking-wide">SENTINEL OFF</p>
+                    <p className="text-blue-400 font-cinzel text-sm tracking-wide">SENTINEL OFF</p>
                     <p className="text-muted-foreground text-xs mt-1">
                       {currentPrefs.decoyMode
                         ? "Decoy mode active — beep sounds will still play on voice detection"
