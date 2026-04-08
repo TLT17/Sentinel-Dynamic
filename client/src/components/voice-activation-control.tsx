@@ -9,7 +9,6 @@ interface VoiceActivationControlProps {
 }
 
 export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }: VoiceActivationControlProps) {
-  const [isListening, setIsListening] = useState(false);
   const [lastDetection, setLastDetection] = useState<Date | null>(null);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
@@ -28,14 +27,6 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }:
       setLastDetection(new Date());
     } catch (e) { /* audio context unavailable */ }
   }, []);
-
-  const simulateVoiceDetection = useCallback(() => {
-    if (isArmed || decoyMode) {
-      playBeep();
-      setIsListening(true);
-      setTimeout(() => setIsListening(false), 500);
-    }
-  }, [isArmed, decoyMode, playBeep]);
 
   return (
     <div className="flex flex-col items-center">
@@ -74,23 +65,6 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }:
         >
           {isArmed ? "SENTINEL ON" : "SENTINEL OFF"}
         </span>
-      </motion.button>
-
-      <motion.button
-        onClick={simulateVoiceDetection}
-        whileTap={{ scale: 0.95 }}
-        className={
-          "mt-6 px-6 py-3 border-2 font-cinzel text-sm tracking-wider transition-all duration-200 " +
-          (isListening
-            ? "border-destructive bg-destructive/20 text-destructive"
-            : "border-border bg-card text-muted-foreground hover-elevate")
-        }
-        data-testid="button-test-voice"
-      >
-        <div className="flex items-center gap-2">
-          <Mic className={"w-4 h-4 " + (isListening ? "animate-pulse" : "")} />
-          {isListening ? "DETECTED!" : "TEST VOICE TRIGGER"}
-        </div>
       </motion.button>
 
       <div className="flex items-center gap-4 mt-6 flex-wrap justify-center">

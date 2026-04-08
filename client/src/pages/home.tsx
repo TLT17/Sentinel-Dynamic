@@ -1,6 +1,7 @@
+import { useState, useRef, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Shield, AlertTriangle, Activity, ChevronRight } from "lucide-react";
+import { Shield, AlertTriangle, Activity, ChevronRight, Mic } from "lucide-react";
 import { Link } from "wouter";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
