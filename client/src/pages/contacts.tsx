@@ -20,7 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const levelConfig: Record<number, { label: string; color: string }> = {
   1: { label: "Level 1 - Emergency Services", color: "#ff4444" },
-  2: { label: "Level 2 - Trusted", color: "#93c5fd" },
+  2: { label: "Level 2 - Trusted", color: "#4f7ef8" },
   3: { label: "Level 3 - General", color: "#00d4aa" },
 };
 
