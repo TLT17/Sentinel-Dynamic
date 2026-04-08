@@ -49,9 +49,24 @@ function useLocalEmergencyNumber() {
 
   useEffect(() => {
     async function detect() {
+      // Method 1: IP-based country detection (fastest, no GPS needed)
       try {
-        const saved = localStorage.getItem("sentinel_last_position");
+        const res = await fetch("https://api.country.is/", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          const countryCode: string = (data.country ?? "").toUpperCase();
+          if (countryCode && EMERGENCY_NUMBERS[countryCode]) {
+            setEmergencyInfo({ ...EMERGENCY_NUMBERS[countryCode], country: countryCode });
+            setDetecting(false);
+            return;
+          }
+        }
+      } catch { /* fall through */ }
+
+      // Method 2: GPS + Nominatim reverse geocode
+      try {
         let lat: number, lon: number;
+        const saved = localStorage.getItem("sentinel_last_position");
         if (saved) {
           const pos = JSON.parse(saved);
           lat = pos[0]; lon = pos[1];
@@ -64,14 +79,14 @@ function useLocalEmergencyNumber() {
         }
         const res = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
-          { headers: { "Accept-Language": "en" } }
+          { headers: { "User-Agent": "SentinelDynamic/1.0", "Accept-Language": "en" } }
         );
         const data = await res.json();
         const countryCode: string = (data.address?.country_code ?? "").toUpperCase();
         const info = EMERGENCY_NUMBERS[countryCode] ?? EMERGENCY_NUMBERS.DEFAULT;
         setEmergencyInfo({ ...info, country: data.address?.country ?? countryCode });
       } catch {
-        setEmergencyInfo({ ...EMERGENCY_NUMBERS.DEFAULT, country: "Unknown" });
+        setEmergencyInfo({ ...EMERGENCY_NUMBERS.DEFAULT, country: "" });
       } finally {
         setDetecting(false);
       }
