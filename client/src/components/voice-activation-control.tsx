@@ -100,7 +100,7 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode, o
           {decoyMode ? "DECOY MODE ACTIVE" : "DECOY MODE OFF"}
         </p>
         <p className="text-xs text-muted-foreground text-center mt-1">
-          {decoyMode ? "Beep sounds on trigger even when disarmed" : "Tap to enable decoy beeps"}
+          {decoyMode ? "Beeps play even when Sentinel is off" : "Tap to enable decoy beeps"}
         </p>
       </button>
 
