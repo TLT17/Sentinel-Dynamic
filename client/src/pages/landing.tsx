@@ -1,10 +1,49 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight } from "lucide-react";
+import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight, ShieldCheck, ShieldOff, Radio, EarOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import sigilPath from "@assets/image_1772723503197.png";
 import { PillarsWordmark } from "@/components/PillarsWordmark";
+
+const howItWorks = [
+  {
+    step: "1",
+    icon: ShieldCheck,
+    title: "SENTINEL ON / SENTINEL OFF",
+    body: "The large shield button on your home screen is the main switch. Tap it to turn Sentinel on — it will start listening for your voice trigger. Tap again to turn it off. Simple as that.",
+  },
+  {
+    step: "2",
+    icon: Radio,
+    title: "LISTENING MODE",
+    body: "When Sentinel is on, you'll see LISTENING MODE at the top of your screen. This means the app is actively waiting to hear your trigger phrase. Keep it on whenever you feel you may need it.",
+  },
+  {
+    step: "3",
+    icon: EarOff,
+    title: "STANDBY MODE",
+    body: "When Sentinel is off, the status shows STANDBY MODE. The app is still open but not listening. You can still use Decoy Mode in standby — see below.",
+  },
+  {
+    step: "4",
+    icon: Mic,
+    title: "YOUR VOICE TRIGGER",
+    body: "You choose a word or short phrase. When Sentinel is on and hears you say it, it immediately sends alerts to your emergency contacts with your location. You never have to unlock your phone or open the app.",
+  },
+  {
+    step: "5",
+    icon: Volume2,
+    title: "THE BEEP",
+    body: "Every time Sentinel hears your trigger, it plays a short quiet beep — just loud enough for you to hear. That beep is your confirmation that help is on the way. No beep means it didn't hear you — try again.",
+  },
+  {
+    step: "6",
+    icon: Lock,
+    title: "DECOY MODE",
+    body: "Decoy Mode makes it look like Sentinel is always on, even when it's off. The beep still sounds on voice detection so anyone nearby can't tell whether you're armed or not. This is turned on by default and can be changed in Settings.",
+  },
+];
 
 const features = [
   { icon: Mic, title: "VOICE ACTIVATION", description: "Custom trigger phrases activate alerts even when your phone is in your pocket or bag. Advanced voice recognition works through fabric and at a distance." },
@@ -69,6 +108,41 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="p-6 md:p-12 border-t border-border">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-cinzel text-3xl text-foreground tracking-wider mb-4">HOW IT WORKS</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Everything you need to know before you rely on Sentinel to keep you safe.
+            </p>
+            <div className="w-24 h-1 bg-primary mx-auto mt-4" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {howItWorks.map(({ step, icon: Icon, title, body }) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: Number(step) * 0.07 }}
+                className="p-6 border border-border bg-card flex gap-4"
+              >
+                <div className="flex-shrink-0 w-10 h-10 border-2 border-primary flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-cinzel text-[10px] text-primary tracking-widest">STEP {step}</span>
+                  </div>
+                  <h3 className="font-cinzel text-sm text-foreground tracking-wider mb-2">{title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
