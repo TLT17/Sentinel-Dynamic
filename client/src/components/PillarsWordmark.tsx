@@ -25,22 +25,52 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
   return (
     <div className={`flex flex-col items-center gap-2 ${className}`}>
       <div
-        className="w-24 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden"
-        style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }}
+        style={{
+          width: 80,
+          height: 80,
+          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
       >
         <img
           src="/iii-pilars-logo.png"
           alt="III Pillars"
-          className="w-full h-full object-cover"
+          style={{
+            width: "142%",
+            height: "142%",
+            objectFit: "cover",
+            objectPosition: "center",
+            marginLeft: "-21%",
+            marginTop: "-21%",
+          }}
         />
       </div>
-      <div className="text-center space-y-0.5">
-        <p className="text-xs font-bold tracking-[0.35em] text-muted-foreground uppercase">
-          III Pillars
+      <div className="text-center" style={{ marginTop: 4 }}>
+        <p
+          style={{
+            fontFamily: "serif",
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.3em",
+            color: "rgba(255,255,255,0.65)",
+            textTransform: "uppercase",
+            margin: 0,
+          }}
+        >
+          III PILLARS
         </p>
         {showSubBrands && (
-          <p className="text-[10px] tracking-[0.18em] text-muted-foreground/45 uppercase">
-            Eagles Haven &nbsp;·&nbsp; Sentinel Dynamic
+          <p
+            style={{
+              fontSize: 9,
+              letterSpacing: "0.22em",
+              color: "rgba(255,255,255,0.35)",
+              textTransform: "uppercase",
+              marginTop: 3,
+            }}
+          >
+            Sentinel Dynamic &nbsp;·&nbsp; Eagles Haven
           </p>
         )}
       </div>
