@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Plus, Trash2, Phone, User, X, AlertTriangle } from "lucide-react";
+import { Users, Plus, Trash2, Phone, User, X, AlertTriangle, ShieldAlert, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -19,15 +19,74 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 const levelConfig: Record<number, { label: string; color: string }> = {
-  1: { label: "Level 1 - Emergency", color: "#ff4444" },
+  1: { label: "Level 1 - Emergency Services", color: "#ff4444" },
   2: { label: "Level 2 - Trusted", color: "#ffaa00" },
   3: { label: "Level 3 - General", color: "#00d4aa" },
 };
+
+const EMERGENCY_NUMBERS: Record<string, { number: string; label: string }> = {
+  NZ: { number: "111", label: "NZ Police / Fire / Ambulance" },
+  AU: { number: "000", label: "Australia Emergency Services" },
+  US: { number: "911", label: "US Emergency Services" },
+  CA: { number: "911", label: "Canada Emergency Services" },
+  GB: { number: "999", label: "UK Emergency Services" },
+  IE: { number: "999", label: "Ireland Emergency Services" },
+  IN: { number: "112", label: "India National Emergency" },
+  ZA: { number: "10111", label: "South Africa Police / 10177 Ambulance" },
+  JP: { number: "110", label: "Japan Police / 119 Fire & Ambulance" },
+  CN: { number: "110", label: "China Police / 120 Ambulance" },
+  BR: { number: "190", label: "Brazil Police / 192 Ambulance" },
+  MX: { number: "911", label: "Mexico Emergency Services" },
+  PH: { number: "911", label: "Philippines Emergency Services" },
+  SG: { number: "999", label: "Singapore Emergency Services" },
+  MY: { number: "999", label: "Malaysia Emergency Services" },
+  DEFAULT: { number: "112", label: "International Emergency Number" },
+};
+
+function useLocalEmergencyNumber() {
+  const [emergencyInfo, setEmergencyInfo] = useState<{ number: string; label: string; country: string } | null>(null);
+  const [detecting, setDetecting] = useState(true);
+
+  useEffect(() => {
+    async function detect() {
+      try {
+        const saved = localStorage.getItem("sentinel_last_position");
+        let lat: number, lon: number;
+        if (saved) {
+          const pos = JSON.parse(saved);
+          lat = pos[0]; lon = pos[1];
+        } else {
+          const geoPos = await new Promise<GeolocationPosition>((res, rej) =>
+            navigator.geolocation.getCurrentPosition(res, rej, { timeout: 6000 })
+          );
+          lat = geoPos.coords.latitude;
+          lon = geoPos.coords.longitude;
+        }
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+          { headers: { "Accept-Language": "en" } }
+        );
+        const data = await res.json();
+        const countryCode: string = (data.address?.country_code ?? "").toUpperCase();
+        const info = EMERGENCY_NUMBERS[countryCode] ?? EMERGENCY_NUMBERS.DEFAULT;
+        setEmergencyInfo({ ...info, country: data.address?.country ?? countryCode });
+      } catch {
+        setEmergencyInfo({ ...EMERGENCY_NUMBERS.DEFAULT, country: "Unknown" });
+      } finally {
+        setDetecting(false);
+      }
+    }
+    detect();
+  }, []);
+
+  return { emergencyInfo, detecting };
+}
 
 export default function ContactsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingContact, setEditingContact] = useState<EmergencyContact | null>(null);
   const [formData, setFormData] = useState({ name: "", phone: "", level: 3, relationship: "" });
+  const { emergencyInfo, detecting } = useLocalEmergencyNumber();
   const { toast } = useToast();
 
   const { data: contacts = [], isLoading } = useQuery<EmergencyContact[]>({
@@ -212,25 +271,64 @@ export default function ContactsPage() {
                 ))}
               </div>
             ) : (
-              [1, 2, 3].map((level) => (
-                <div key={level} className="mb-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-3 h-3" style={{ backgroundColor: levelConfig[level].color }} />
-                    <h2
-                      className="font-cinzel text-lg tracking-wider"
-                      style={{ color: levelConfig[level].color }}
-                    >
-                      {levelConfig[level].label.toUpperCase()}
-                    </h2>
-                    <span className="text-muted-foreground text-sm">({grouped[level].length})</span>
-                  </div>
-                  {grouped[level].length === 0 ? (
-                    <div className="border-2 border-dashed border-border p-6 text-center">
-                      <p className="text-muted-foreground font-cinzel text-sm">No contacts at this level</p>
+              [1, 2, 3].map((level) => {
+                const isEmergencyLevel = level === 1;
+                const userContacts = isEmergencyLevel
+                  ? grouped[level].filter((c) => c.relationship?.toLowerCase() !== "emergency")
+                  : grouped[level];
+
+                return (
+                  <div key={level} className="mb-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-3 h-3" style={{ backgroundColor: levelConfig[level].color }} />
+                      <h2
+                        className="font-cinzel text-lg tracking-wider"
+                        style={{ color: levelConfig[level].color }}
+                      >
+                        {levelConfig[level].label.toUpperCase()}
+                      </h2>
+                      <span className="text-muted-foreground text-sm">
+                        ({isEmergencyLevel ? userContacts.length + 1 : grouped[level].length})
+                      </span>
                     </div>
-                  ) : (
+
                     <div className="space-y-2">
-                      {grouped[level].map((contact) => (
+                      {isEmergencyLevel && (
+                        <div
+                          className="bg-destructive/10 border-2 border-destructive/50 p-4 flex items-center justify-between"
+                          data-testid="card-emergency-services"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 border-2 border-destructive/50 flex items-center justify-center">
+                              <ShieldAlert className="w-5 h-5 text-destructive" />
+                            </div>
+                            <div>
+                              {detecting ? (
+                                <Skeleton className="h-4 w-40 mb-1" />
+                              ) : (
+                                <p className="text-foreground font-cinzel tracking-wide">
+                                  {emergencyInfo?.label ?? "Emergency Services"}
+                                </p>
+                              )}
+                              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Phone className="w-3 h-3" />
+                                  {detecting ? "Detecting..." : emergencyInfo?.number ?? "112"}
+                                </span>
+                                {emergencyInfo?.country && (
+                                  <span className="text-xs">{emergencyInfo.country}</span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 text-muted-foreground/50">
+                            <Lock className="w-4 h-4" />
+                            <span className="font-cinzel text-[10px] tracking-wider">AUTO</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {userContacts.map((contact) => (
                         <div
                           key={contact.id}
                           className="bg-card border-2 border-border p-4 flex items-center justify-between hover-elevate transition-all"
@@ -271,10 +369,16 @@ export default function ContactsPage() {
                           </div>
                         </div>
                       ))}
+
+                      {!isEmergencyLevel && userContacts.length === 0 && (
+                        <div className="border-2 border-dashed border-border p-6 text-center">
+                          <p className="text-muted-foreground font-cinzel text-sm">No contacts at this level</p>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))
+                  </div>
+                );
+              })
             )}
 
             {!isLoading && grouped[1].length === 0 && (
