@@ -36,14 +36,14 @@ export default function TermsPage() {
 
             <section>
               <h2 className="font-cinzel text-lg text-foreground tracking-wider mb-3 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-primary shrink-0" />IMPORTANT SAFETY NOTICE</h2>
-              <div className="border-2 border-blue-500/50 bg-blue-500/10 p-4">
-                <p className="text-sm text-blue-500 mb-3 font-cinzel tracking-wide">PLEASE READ CAREFULLY</p>
+              <div className="border-2 border-blue-300/50 bg-blue-300/10 p-4">
+                <p className="text-sm text-blue-300 mb-3 font-cinzel tracking-wide">PLEASE READ CAREFULLY</p>
                 <ul className="space-y-2 text-sm list-none">
-                  <li className="flex items-start gap-2"><span className="text-blue-500 mt-1.5 shrink-0">&#9642;</span> Sentinel Dynamic is a supplementary safety tool and should not be relied upon as your sole means of emergency communication</li>
-                  <li className="flex items-start gap-2"><span className="text-blue-500 mt-1.5 shrink-0">&#9642;</span> Always call your local emergency number (e.g., 111, 911, 999, 112) when in immediate danger if it is safe to do so</li>
-                  <li className="flex items-start gap-2"><span className="text-blue-500 mt-1.5 shrink-0">&#9642;</span> The application requires an active internet connection to send alerts to contacts. The decoy beep feature works offline</li>
-                  <li className="flex items-start gap-2"><span className="text-blue-500 mt-1.5 shrink-0">&#9642;</span> GPS accuracy depends on your device and environmental conditions</li>
-                  <li className="flex items-start gap-2"><span className="text-blue-500 mt-1.5 shrink-0">&#9642;</span> Voice recognition accuracy may vary based on background noise, distance, and device capabilities</li>
+                  <li className="flex items-start gap-2"><span className="text-blue-300 mt-1.5 shrink-0">&#9642;</span> Sentinel Dynamic is a supplementary safety tool and should not be relied upon as your sole means of emergency communication</li>
+                  <li className="flex items-start gap-2"><span className="text-blue-300 mt-1.5 shrink-0">&#9642;</span> Always call your local emergency number (e.g., 111, 911, 999, 112) when in immediate danger if it is safe to do so</li>
+                  <li className="flex items-start gap-2"><span className="text-blue-300 mt-1.5 shrink-0">&#9642;</span> The application requires an active internet connection to send alerts to contacts. The decoy beep feature works offline</li>
+                  <li className="flex items-start gap-2"><span className="text-blue-300 mt-1.5 shrink-0">&#9642;</span> GPS accuracy depends on your device and environmental conditions</li>
+                  <li className="flex items-start gap-2"><span className="text-blue-300 mt-1.5 shrink-0">&#9642;</span> Voice recognition accuracy may vary based on background noise, distance, and device capabilities</li>
                 </ul>
               </div>
             </section>

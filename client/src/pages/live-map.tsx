@@ -271,7 +271,7 @@ export default function LiveMapPage() {
           <div className="flex items-center gap-2 flex-wrap">
             <div className="flex items-center gap-1.5">
               {isOffline ? (
-                <Badge variant="outline" className="font-cinzel text-[10px] tracking-wider text-blue-500 border-blue-500/30">
+                <Badge variant="outline" className="font-cinzel text-[10px] tracking-wider text-blue-300 border-blue-300/30">
                   <WifiOff className="w-3 h-3 mr-1" />OFFLINE
                 </Badge>
               ) : (
