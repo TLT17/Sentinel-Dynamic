@@ -11,6 +11,98 @@ import SentinelFooter from "@/components/sentinel-footer";
 import type { UserPreference, EmergencyContact } from "@shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
+function VoiceBeepTest() {
+  const [testState, setTestState] = useState<"idle" | "listening" | "detected" | "error">("idle");
+  const streamRef = useRef<MediaStream | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const playBeep = useCallback(() => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 1200;
+      osc.type = "sine";
+      gain.gain.value = 0.3;
+      osc.start();
+      setTimeout(() => { osc.stop(); ctx.close(); }, 150);
+    } catch (e) { /* */ }
+  }, []);
+
+  const stopTest = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
+    streamRef.current = null;
+  }, []);
+
+  const startTest = useCallback(async () => {
+    if (testState === "listening") { stopTest(); setTestState("idle"); return; }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      setTestState("listening");
+
+      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const source = audioCtx.createMediaStreamSource(stream);
+      const analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      source.connect(analyser);
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      let detected = false;
+
+      intervalRef.current = setInterval(() => {
+        analyser.getByteFrequencyData(data);
+        const avg = data.reduce((a, b) => a + b, 0) / data.length;
+        if (avg > 18 && !detected) {
+          detected = true;
+          playBeep();
+          setTestState("detected");
+          stopTest();
+          audioCtx.close();
+          setTimeout(() => setTestState("idle"), 2500);
+        }
+      }, 80);
+
+      timeoutRef.current = setTimeout(() => {
+        if (!detected) { stopTest(); audioCtx.close(); setTestState("idle"); }
+      }, 6000);
+    } catch {
+      setTestState("error");
+      setTimeout(() => setTestState("idle"), 3000);
+    }
+  }, [testState, playBeep, stopTest]);
+
+  const label = testState === "idle" ? "VOICE / BEEP TEST"
+    : testState === "listening" ? "LISTENING... SPEAK NOW"
+    : testState === "detected" ? "DETECTED — BEEP PLAYED"
+    : "MICROPHONE ACCESS DENIED";
+
+  const borderColor = testState === "detected" ? "border-primary text-primary"
+    : testState === "listening" ? "border-yellow-500 text-yellow-500"
+    : testState === "error" ? "border-destructive text-destructive"
+    : "border-border text-muted-foreground";
+
+  return (
+    <motion.button
+      onClick={startTest}
+      whileTap={{ scale: 0.97 }}
+      className={"mt-4 w-full p-4 border-2 bg-card flex items-center justify-between transition-all duration-200 hover-elevate " + borderColor}
+      data-testid="button-voice-beep-test"
+    >
+      <div className="flex items-center gap-3">
+        <Mic className={"w-5 h-5 " + (testState === "listening" ? "animate-pulse" : "")} />
+        <span className="font-cinzel tracking-wide text-sm">{label}</span>
+      </div>
+      {testState === "idle" && <ChevronRight className="w-4 h-4 text-primary" />}
+      {testState === "listening" && <span className="text-xs font-cinzel opacity-60">TAP TO STOP</span>}
+    </motion.button>
+  );
+}
+
 export default function HomePage() {
   const { data: preferences, isLoading: prefsLoading } = useQuery<UserPreference[]>({
     queryKey: ["/api/preferences"],
@@ -132,6 +224,8 @@ export default function HomePage() {
                 </div>
               </Link>
             </div>
+
+            <VoiceBeepTest />
 
             {!currentPrefs.systemArmed && (
               <motion.div
