@@ -80,7 +80,7 @@ export default function HomePage() {
                 >
                   <Activity className="w-4 h-4" />
                   <span className="font-cinzel tracking-wider text-sm">
-                    {currentPrefs.systemArmed ? "MONITORING ACTIVE" : "STANDBY MODE"}
+                    {currentPrefs.systemArmed ? "LISTENING MODE" : "STANDBY MODE"}
                   </span>
                 </div>
               )}
@@ -141,11 +141,11 @@ export default function HomePage() {
                 <div className="flex items-start gap-3">
                   <Shield className="w-5 h-5 text-yellow-500 mt-0.5" />
                   <div>
-                    <p className="text-yellow-500 font-cinzel text-sm tracking-wide">SYSTEM DISARMED</p>
+                    <p className="text-yellow-500 font-cinzel text-sm tracking-wide">SENTINEL OFF</p>
                     <p className="text-muted-foreground text-xs mt-1">
                       {currentPrefs.decoyMode
-                        ? "Decoy mode active - beep sounds will still play on voice detection"
-                        : "Enable the system to activate voice monitoring"}
+                        ? "Decoy mode active — beep sounds will still play on voice detection"
+                        : "Tap the shield above to turn Sentinel on and start listening"}
                     </p>
                   </div>
                 </div>

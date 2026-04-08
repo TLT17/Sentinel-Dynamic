@@ -72,7 +72,7 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }:
             (isArmed ? "text-primary" : "text-muted-foreground")
           }
         >
-          {isArmed ? "ARMED" : "DISARMED"}
+          {isArmed ? "SENTINEL ON" : "SENTINEL OFF"}
         </span>
       </motion.button>
 
