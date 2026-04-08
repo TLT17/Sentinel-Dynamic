@@ -64,30 +64,21 @@ export default function LiveMapPage() {
     const map = L.map(mapRef.current, {
       zoomControl: false,
       attributionControl: false,
-    }).setView(initialView, 13);
+    }).setView(initialView, 16);
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      maxZoom: 20,
+      subdomains: "abcd",
     }).addTo(map);
 
     mapInstanceRef.current = map;
 
-    // Immediately try to get the user's location on load
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          localStorage.setItem(LAST_POS_KEY, JSON.stringify({ lat: latitude, lng: longitude }));
-          if (mapInstanceRef.current) {
-            mapInstanceRef.current.setView([latitude, longitude], 14);
-          }
-        },
-        () => {}, // Silent fail — map stays on last known or NZ fallback
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
-      );
-    }
+    // Auto-start tracking as soon as the map is ready
+    setTimeout(() => {
+      if (mapInstanceRef.current) startTracking();
+    }, 400);
 
     return () => {
       map.remove();
@@ -196,6 +187,8 @@ export default function LiveMapPage() {
         if (s !== null) setSpeed(s);
 
         if (mapInstanceRef.current) {
+          const isFirstFix = !markerRef.current;
+
           if (!markerRef.current) {
             markerRef.current = L.marker([latitude, longitude], { icon: userIcon })
               .addTo(mapInstanceRef.current);
@@ -217,7 +210,9 @@ export default function LiveMapPage() {
             accuracyRef.current.setRadius(acc);
           }
 
-          mapInstanceRef.current.setView([latitude, longitude], mapInstanceRef.current.getZoom());
+          // On first fix zoom to street level, afterwards preserve user's zoom
+          const zoom = isFirstFix ? 17 : mapInstanceRef.current.getZoom();
+          mapInstanceRef.current.setView([latitude, longitude], zoom);
         }
       },
       (err) => console.error("Geolocation error:", err),
