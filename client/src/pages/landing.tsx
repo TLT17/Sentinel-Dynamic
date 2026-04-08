@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight, ShieldCheck, ShieldOff, Radio, EarOff } from "lucide-react";
+import { Mic, Bell, Lock, Smartphone, Volume2, MapPin, ChevronRight, ShieldCheck, Radio, EarOff, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeatureCard from "@/components/feature-card";
 import sigilPath from "@assets/image_1772723503197.png";
@@ -42,6 +42,12 @@ const howItWorks = [
     icon: Lock,
     title: "DECOY MODE",
     body: "Decoy Mode makes it look like Sentinel is always on, even when it's off. The beep still sounds on voice detection so anyone nearby can't tell whether you're armed or not. This is turned on by default and can be changed in Settings.",
+  },
+  {
+    step: "7",
+    icon: LogOut,
+    title: "QUICK EXIT BUTTON",
+    body: "The EXIT button sits in the top corner of every screen. If someone comes near and you need to hide the app instantly, tap it — your screen immediately switches to Google. There is no animation, no delay, and no trace that Sentinel was open. Use it any time you feel unsafe being seen with the app.",
   },
 ];
 

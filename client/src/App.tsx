@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import NotFound from "@/pages/not-found";
@@ -58,7 +58,14 @@ function AppLayout() {
         <AppSidebar />
         <div className="flex flex-col flex-1 min-w-0">
           <header className="flex items-center justify-between gap-1 p-2 border-b border-border bg-background">
-            <SidebarTrigger data-testid="button-sidebar-toggle" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <SidebarTrigger data-testid="button-sidebar-toggle" />
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <span className="font-cinzel text-xs tracking-wider">NAVIGATION</span>
+              </TooltipContent>
+            </Tooltip>
             <Button
               size="sm"
               variant="destructive"
