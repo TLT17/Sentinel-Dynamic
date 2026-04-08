@@ -6,9 +6,10 @@ interface VoiceActivationControlProps {
   isArmed: boolean;
   onToggle: () => void;
   decoyMode: boolean;
+  onDecoyToggle: () => void;
 }
 
-export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }: VoiceActivationControlProps) {
+export default function VoiceActivationControl({ isArmed, onToggle, decoyMode, onDecoyToggle }: VoiceActivationControlProps) {
   const [lastDetection, setLastDetection] = useState<Date | null>(null);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
@@ -89,12 +90,19 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }:
         </div>
       </div>
 
-      {!isArmed && decoyMode && (
-        <div className="mt-4 p-3 border border-primary/30 bg-primary/5 max-w-xs">
-          <p className="text-xs text-primary text-center font-cinzel tracking-wide">DECOY MODE ACTIVE</p>
-          <p className="text-xs text-muted-foreground text-center mt-1">Beep sounds on trigger even when disarmed</p>
-        </div>
-      )}
+      <button
+        onClick={onDecoyToggle}
+        className="mt-4 p-3 border max-w-xs w-full transition-colors text-left"
+        style={{ borderColor: decoyMode ? "hsl(164 100% 48% / 0.4)" : "hsl(0 0% 22%)", background: decoyMode ? "hsl(164 100% 48% / 0.05)" : "transparent" }}
+        data-testid="button-decoy-mode"
+      >
+        <p className="text-xs text-center font-cinzel tracking-wide" style={{ color: decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 55%)" }}>
+          {decoyMode ? "DECOY MODE ACTIVE" : "DECOY MODE OFF"}
+        </p>
+        <p className="text-xs text-muted-foreground text-center mt-1">
+          {decoyMode ? "Beep sounds on trigger even when disarmed" : "Tap to enable decoy beeps"}
+        </p>
+      </button>
 
       {lastDetection && (
         <p className="text-xs text-muted-foreground mt-3 font-cinzel" data-testid="text-last-beep">

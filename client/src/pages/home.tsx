@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { AlertTriangle, Activity, ChevronRight, EyeOff, Mic } from "lucide-react";
+import { AlertTriangle, Activity, ChevronRight, Mic } from "lucide-react";
 import { Link } from "wouter";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -203,37 +203,10 @@ export default function HomePage() {
                   isArmed={currentPrefs.systemArmed}
                   onToggle={() => toggleMutation.mutate(!currentPrefs.systemArmed)}
                   decoyMode={currentPrefs.decoyMode}
+                  onDecoyToggle={() => decoyMutation.mutate(!currentPrefs.decoyMode)}
                 />
               </div>
             )}
-
-            <button
-              className="mb-6 w-full p-4 border-2 bg-card flex items-center justify-between transition-colors cursor-pointer"
-              style={{ borderColor: currentPrefs.decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 22%)" }}
-              onClick={() => decoyMutation.mutate(!currentPrefs.decoyMode)}
-              disabled={decoyMutation.isPending}
-              data-testid="button-decoy-mode-home"
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-8 h-8 border flex items-center justify-center shrink-0 transition-colors"
-                  style={{ borderColor: currentPrefs.decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 22%)" }}
-                >
-                  <EyeOff className="w-4 h-4" style={{ color: currentPrefs.decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 55%)" }} />
-                </div>
-                <div className="text-left">
-                  <p className="font-cinzel tracking-wider text-sm" style={{ color: currentPrefs.decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 55%)" }}>
-                    {currentPrefs.decoyMode ? "DECOY MODE ACTIVE" : "DECOY MODE OFF"}
-                  </p>
-                  <p className="text-muted-foreground text-xs mt-0.5">
-                    {currentPrefs.decoyMode ? "Beeps play even when Sentinel is off" : "Tap to enable decoy beeps"}
-                  </p>
-                </div>
-              </div>
-              <span className="font-cinzel text-xs tracking-wider" style={{ color: currentPrefs.decoyMode ? "hsl(164 100% 48%)" : "hsl(0 0% 55%)" }}>
-                {currentPrefs.decoyMode ? "ON" : "OFF"}
-              </span>
-            </button>
 
             <div className="mb-8">
               <h2 className="font-cinzel text-lg text-foreground tracking-wider mb-4 flex items-center gap-2">
