@@ -11,9 +11,9 @@
   --background: 0 0% 0%;
   --foreground: 0 0% 97%;
   --border: 0 0% 22%;
-  --card: 0 0% 8%;
+  --card: 0 0% 5%;
   --card-foreground: 0 0% 97%;
-  --card-border: 0 0% 16%;
+  --card-border: 0 0% 18%;
   --sidebar: 0 0% 2%;
   --sidebar-foreground: 0 0% 97%;
   --sidebar-border: 0 0% 12%;
@@ -22,7 +22,7 @@
   --sidebar-accent: 164 30% 10%;
   --sidebar-accent-foreground: 0 0% 97%;
   --sidebar-ring: 164 100% 48%;
-  --popover: 0 0% 7%;
+  --popover: 0 0% 5%;
   --popover-foreground: 0 0% 97%;
   --popover-border: 0 0% 16%;
   --primary: 164 100% 48%;
@@ -35,7 +35,7 @@
   --accent-foreground: 0 0% 97%;
   --destructive: 0 85% 55%;
   --destructive-foreground: 0 0% 98%;
-  --input: 0 0% 18%;
+  --input: 0 0% 11%;
   --ring: 164 100% 42%;
   --chart-1: 164 100% 42%;
   --chart-2: 40 90% 50%;
@@ -82,9 +82,9 @@
   --background: 0 0% 0%;
   --foreground: 0 0% 97%;
   --border: 0 0% 22%;
-  --card: 0 0% 8%;
+  --card: 0 0% 5%;
   --card-foreground: 0 0% 97%;
-  --card-border: 0 0% 16%;
+  --card-border: 0 0% 18%;
   --sidebar: 0 0% 2%;
   --sidebar-foreground: 0 0% 97%;
   --sidebar-border: 0 0% 12%;
@@ -93,7 +93,7 @@
   --sidebar-accent: 164 30% 10%;
   --sidebar-accent-foreground: 0 0% 97%;
   --sidebar-ring: 164 100% 48%;
-  --popover: 0 0% 7%;
+  --popover: 0 0% 5%;
   --popover-foreground: 0 0% 97%;
   --popover-border: 0 0% 16%;
   --primary: 164 100% 48%;
@@ -106,7 +106,7 @@
   --accent-foreground: 0 0% 97%;
   --destructive: 0 85% 55%;
   --destructive-foreground: 0 0% 98%;
-  --input: 0 0% 18%;
+  --input: 0 0% 11%;
   --ring: 164 100% 42%;
   --chart-1: 164 100% 50%;
   --chart-2: 40 90% 55%;
@@ -141,6 +141,10 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    font-size: 18px;
   }
 
   body {
