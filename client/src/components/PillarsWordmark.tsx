@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 interface PillarsWordmarkProps {
   variant?: "full" | "badge";
   className?: string;
@@ -9,12 +11,13 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
     return (
       <div className={`inline-flex items-center gap-1.5 ${className}`}>
         <span
-          style={{ fontFamily: "serif", fontSize: 12, fontWeight: 700, letterSpacing: "0.2em", color: "rgba(255,255,255,0.45)" }}
+          className="font-serif text-sm font-bold text-muted-foreground/50 tracking-[0.15em] leading-none"
+          style={{ letterSpacing: "0.2em" }}
           aria-label="Three Pillars"
         >
           III
         </span>
-        <span style={{ fontSize: 9, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase" }}>
+        <span className="text-[9px] font-semibold tracking-[0.22em] text-muted-foreground/45 uppercase">
           Pillars
         </span>
       </div>
@@ -22,35 +25,23 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
   }
 
   return (
-    <div className={`flex flex-col items-center ${className}`} style={{ gap: 12 }}>
+    <div className={`flex flex-col items-center gap-2 ${className}`}>
       <div
-        style={{
-          width: 110,
-          height: 110,
-          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
+        className="w-24 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden"
+        style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }}
       >
         <img
           src="/iii-pilars-logo.png"
           alt="III Pillars"
-          style={{
-            width: "155%",
-            height: "155%",
-            objectFit: "cover",
-            objectPosition: "center center",
-            marginLeft: "-27.5%",
-            marginTop: "-27.5%",
-          }}
+          className="w-full h-full object-contain"
         />
       </div>
-      <div className="text-center" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <p style={{ fontFamily: "Cinzel, serif", fontSize: 14, fontWeight: 700, letterSpacing: "0.3em", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", margin: 0 }}>
-          III PILLARS
+      <div className="text-center space-y-0.5">
+        <p className="text-xs font-bold tracking-[0.35em] text-muted-foreground uppercase">
+          III Pillars
         </p>
         {showSubBrands && (
-          <p style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", margin: 0 }}>
+          <p className="text-[10px] tracking-[0.18em] text-muted-foreground/45 uppercase">
             Sentinel Dynamic &nbsp;·&nbsp; Eagles Haven
           </p>
         )}
