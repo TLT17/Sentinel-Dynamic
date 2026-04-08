@@ -23,7 +23,7 @@ const levelConfig: Record<number, { label: string; color: string; description: s
   },
   2: {
     label: "Level 2 - Trusted",
-    color: "#a855f7",
+    color: "#3b82f6",
     description: "Alert trusted contacts only",
     defaultPhrase: "I need help",
     defaultMessage: "ALERT: I may be in danger. Please check on me. This is an automated message from Sentinel Dynamic.",
