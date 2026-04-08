@@ -25,9 +25,9 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
     <div className={`flex flex-col items-center ${className}`} style={{ gap: 12 }}>
       <div
         style={{
-          width: 96,
-          height: 108,
-          clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
+          width: 110,
+          height: 110,
+          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
           overflow: "hidden",
           flexShrink: 0,
         }}
@@ -36,12 +36,12 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
           src="/iii-pilars-logo.png"
           alt="III Pillars"
           style={{
-            width: "160%",
-            height: "160%",
+            width: "155%",
+            height: "155%",
             objectFit: "cover",
-            objectPosition: "center top",
-            marginLeft: "-30%",
-            marginTop: "-10%",
+            objectPosition: "center center",
+            marginLeft: "-27.5%",
+            marginTop: "-27.5%",
           }}
         />
       </div>
