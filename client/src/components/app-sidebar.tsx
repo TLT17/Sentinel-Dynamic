@@ -99,7 +99,18 @@ export function AppSidebar() {
             </div>
           </Link>
         </div>
-        <p className="text-[10px] text-muted-foreground font-cinzel tracking-wider">SENTINEL DYNAMIC v1.0</p>
+        <div className="flex items-center gap-1.5">
+          <img
+            src={sigilPath}
+            alt="Sentinel Sigil"
+            className="w-3.5 h-3.5 object-contain"
+            style={{
+              filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9) contrast(1.4)",
+              mixBlendMode: "screen",
+            }}
+          />
+          <p className="text-[10px] text-muted-foreground font-cinzel tracking-wider">SENTINEL DYNAMIC v1.0</p>
+        </div>
         <p className="text-[9px] text-muted-foreground/60 mt-0.5">PROTECTING WHAT MATTERS</p>
       </SidebarFooter>
     </Sidebar>
