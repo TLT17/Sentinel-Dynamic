@@ -9,13 +9,12 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
     return (
       <div className={`inline-flex items-center gap-1.5 ${className}`}>
         <span
-          className="font-serif text-sm font-bold text-muted-foreground/50 tracking-[0.15em] leading-none"
-          style={{ letterSpacing: "0.2em" }}
+          style={{ fontFamily: "serif", fontSize: 12, fontWeight: 700, letterSpacing: "0.2em", color: "rgba(255,255,255,0.45)" }}
           aria-label="Three Pillars"
         >
           III
         </span>
-        <span className="text-[9px] font-semibold tracking-[0.22em] text-muted-foreground/45 uppercase">
+        <span style={{ fontSize: 9, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase" }}>
           Pillars
         </span>
       </div>
@@ -23,12 +22,12 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
   }
 
   return (
-    <div className={`flex flex-col items-center gap-2 ${className}`}>
+    <div className={`flex flex-col items-center ${className}`} style={{ gap: 12 }}>
       <div
         style={{
-          width: 80,
-          height: 80,
-          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+          width: 96,
+          height: 108,
+          clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
           overflow: "hidden",
           flexShrink: 0,
         }}
@@ -37,39 +36,21 @@ export function PillarsWordmark({ variant = "full", className = "", showSubBrand
           src="/iii-pilars-logo.png"
           alt="III Pillars"
           style={{
-            width: "142%",
-            height: "142%",
+            width: "160%",
+            height: "160%",
             objectFit: "cover",
-            objectPosition: "center",
-            marginLeft: "-21%",
-            marginTop: "-21%",
+            objectPosition: "center top",
+            marginLeft: "-30%",
+            marginTop: "-10%",
           }}
         />
       </div>
-      <div className="text-center" style={{ marginTop: 4 }}>
-        <p
-          style={{
-            fontFamily: "serif",
-            fontSize: 13,
-            fontWeight: 700,
-            letterSpacing: "0.3em",
-            color: "rgba(255,255,255,0.65)",
-            textTransform: "uppercase",
-            margin: 0,
-          }}
-        >
+      <div className="text-center" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <p style={{ fontFamily: "Cinzel, serif", fontSize: 14, fontWeight: 700, letterSpacing: "0.3em", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", margin: 0 }}>
           III PILLARS
         </p>
         {showSubBrands && (
-          <p
-            style={{
-              fontSize: 9,
-              letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.35)",
-              textTransform: "uppercase",
-              marginTop: 3,
-            }}
-          >
+          <p style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", margin: 0 }}>
             Sentinel Dynamic &nbsp;·&nbsp; Eagles Haven
           </p>
         )}
