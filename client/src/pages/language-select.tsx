@@ -55,12 +55,12 @@ export default function LanguageSelectPage() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-10"
       >
-        <div className="w-24 h-24 mx-auto mb-6">
+        <div className="w-36 h-36 mx-auto mb-6" style={{ background: "#0d0d0d" }}>
           <img
             src={sigilPath}
             alt="Sentinel Dynamic Sigil"
             className="w-full h-full object-contain"
-            style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9)", mixBlendMode: "screen" }}
+            style={{ filter: "invert(1) sepia(1) saturate(3) hue-rotate(140deg) brightness(0.9) contrast(1.4)", mixBlendMode: "screen" }}
             data-testid="img-sigil"
           />
         </div>
