@@ -18,6 +18,19 @@ export default function LiveMapPage() {
   const safeLayersRef = useRef<L.LayerGroup | null>(null);
   const nearbyLayersRef = useRef<L.LayerGroup | null>(null);
 
+  const LAST_POS_KEY = "sentinel_last_position";
+
+  const getInitialView = (): [number, number] => {
+    try {
+      const saved = localStorage.getItem(LAST_POS_KEY);
+      if (saved) {
+        const { lat, lng } = JSON.parse(saved);
+        return [lat, lng];
+      }
+    } catch {}
+    return [-38.18, 175.36]; // Otorohanga, NZ — central fallback
+  };
+
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [isTracking, setIsTracking] = useState(false);
@@ -46,10 +59,12 @@ export default function LiveMapPage() {
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
+    const initialView = getInitialView();
+
     const map = L.map(mapRef.current, {
       zoomControl: false,
       attributionControl: false,
-    }).setView([-41.2865, 174.7762], 14);
+    }).setView(initialView, 13);
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
@@ -58,6 +73,21 @@ export default function LiveMapPage() {
     }).addTo(map);
 
     mapInstanceRef.current = map;
+
+    // Immediately try to get the user's location on load
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          localStorage.setItem(LAST_POS_KEY, JSON.stringify({ lat: latitude, lng: longitude }));
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.setView([latitude, longitude], 14);
+          }
+        },
+        () => {}, // Silent fail — map stays on last known or NZ fallback
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      );
+    }
 
     return () => {
       map.remove();
@@ -161,6 +191,7 @@ export default function LiveMapPage() {
         const { latitude, longitude, accuracy: acc, heading: h, speed: s } = pos.coords;
         setPosition({ lat: latitude, lng: longitude });
         setAccuracy(acc);
+        localStorage.setItem(LAST_POS_KEY, JSON.stringify({ lat: latitude, lng: longitude }));
         if (h !== null) setHeading(h);
         if (s !== null) setSpeed(s);
 
