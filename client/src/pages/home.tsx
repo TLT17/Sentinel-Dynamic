@@ -1,11 +1,10 @@
 import { useState, useRef, useCallback } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { AlertTriangle, Activity, ChevronRight, EyeOff } from "lucide-react";
+import { AlertTriangle, Activity, ChevronRight, EyeOff, Mic } from "lucide-react";
 import { Link } from "wouter";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
 import VoiceActivationControl from "@/components/voice-activation-control";
 import LevelIndicator from "@/components/level-indicator";
 import SentinelFooter from "@/components/sentinel-footer";
