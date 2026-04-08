@@ -139,7 +139,13 @@ export default function LiveMapPage() {
           mapInstanceRef.current.panTo([lat, lng]);
         }
       },
-      () => setGpsStatus("error"),
+      () => {
+        if (watchIdRef.current !== null) {
+          navigator.geolocation.clearWatch(watchIdRef.current);
+          watchIdRef.current = null;
+        }
+        setGpsStatus("error");
+      },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 3000 }
     );
   }, []);
