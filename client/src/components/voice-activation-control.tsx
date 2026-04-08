@@ -80,12 +80,12 @@ export default function VoiceActivationControl({ isArmed, onToggle, decoyMode }:
         </div>
         <div className="flex items-center gap-2">
           {isOffline ? (
-            <WifiOff className="w-5 h-5 text-blue-400" />
+            <WifiOff className="w-5 h-5 text-purple-400" />
           ) : (
             <Wifi className="w-5 h-5 text-primary" />
           )}
           <span className="text-sm text-muted-foreground font-cinzel">{isOffline ? "OFFLINE" : "ONLINE"}</span>
-          <div className={"w-2 h-2 " + (isOffline ? "bg-blue-400" : "bg-primary")} />
+          <div className={"w-2 h-2 " + (isOffline ? "bg-purple-400" : "bg-primary")} />
         </div>
       </div>
 
