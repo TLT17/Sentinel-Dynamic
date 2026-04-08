@@ -32,6 +32,7 @@ export default function LiveMapPage() {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [gpsStatus, setGpsStatus] = useState<"searching" | "found" | "error">("searching");
+  const [gpsError, setGpsError] = useState<string>("");
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const [nearbyPlaces, setNearbyPlaces] = useState<NearbyPlace[]>([]);
   const [loadingNearby, setLoadingNearby] = useState(false);
@@ -139,10 +140,17 @@ export default function LiveMapPage() {
           mapInstanceRef.current.panTo([lat, lng]);
         }
       },
-      () => {
+      (err) => {
         if (watchIdRef.current !== null) {
           navigator.geolocation.clearWatch(watchIdRef.current);
           watchIdRef.current = null;
+        }
+        if (err.code === 1) {
+          setGpsError("Location access was blocked. Tap the lock icon in your browser address bar, set Location to Allow, then tap Retry.");
+        } else if (err.code === 2) {
+          setGpsError("Your device couldn't get a location signal. Make sure you're not in aeroplane mode, then tap Retry.");
+        } else {
+          setGpsError("Location took too long to respond. Move somewhere with better signal and tap Retry.");
         }
         setGpsStatus("error");
       },
@@ -277,11 +285,11 @@ export default function LiveMapPage() {
       {/* GPS error overlay */}
       {gpsStatus === "error" && (
         <div className="absolute inset-0 z-[1000] flex items-center justify-center pointer-events-none">
-          <div className="bg-background/95 border-2 border-destructive/50 px-6 py-5 text-center max-w-xs pointer-events-auto">
-            <p className="font-cinzel text-foreground text-sm tracking-wider mb-2">LOCATION NOT FOUND</p>
-            <p className="text-muted-foreground text-xs mb-4">Please allow location access in your browser settings, then try again.</p>
-            <Button onClick={startTracking} className="font-cinzel tracking-wider rounded-none text-xs">
-              <Navigation className="w-3 h-3 mr-2" /> TRY AGAIN
+          <div className="bg-background/95 border-2 border-destructive/50 px-6 py-5 text-center max-w-sm pointer-events-auto">
+            <p className="font-cinzel text-foreground text-sm tracking-wider mb-3">LOCATION NOT FOUND</p>
+            <p className="text-muted-foreground text-xs mb-5 leading-relaxed">{gpsError}</p>
+            <Button onClick={startTracking} className="font-cinzel tracking-wider rounded-none text-xs w-full">
+              <Navigation className="w-3 h-3 mr-2" /> RETRY
             </Button>
           </div>
         </div>
