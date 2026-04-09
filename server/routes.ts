@@ -14,6 +14,10 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
 
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.get("/api/contacts", async (_req, res) => {
     const contacts = await storage.getContacts();
     res.json(contacts);
